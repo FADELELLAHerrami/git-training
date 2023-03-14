@@ -152,6 +152,119 @@
 <video src="02-16-04.mp4" autoplay></video>  
 
 
+---
+---
+
+* Pour supprimer une branche :  ` git branch -d nomDeLaBranche`   
+* Si vous avez déja fait des modifications dans votre branche , et vous souhaiter la supprimer : ` git branch -D nomDeLa Branche`  
+<div style="background-color: #FEFAE0;color:black;font-size:15px;padding:10px;border-radius:15px;">
+La suppression de cette branche entraînera la suppression de tous les fichiers et modifications que nous n'aurez pas commités sur cette branche.
+</div> 
+
+---  
+---  
+# git stash 👍
+--- 
+
+<video src="03-15-02.mp4" autoplay></video>  
+
+---
+---
+# J’ai modifié la branche après avoir fait un commit
+---  
+---  
+* Pour cette état on utilise `git log` , pour récupérer les identifiant (hash) des commit .
+* Exemple 💯
+
+		admin@VGRFJWX8PH2  ~/Desktop/learn git (main)
+		$ git log
+		commit 7356abb52e829480e2d6037cc25067d2b6fce8e8 (HEAD -> main, origin/main)
+		Author: erramifadelellah && ayman eljamaaoui <fadelellaherrami@gmail.com>
+		Date:   Sat Mar 11 02:33:14 2023 +0100
+
+    	git training
+* Pour supprimer ce commit , utilise cette commande : `git reset --hard 7356abb5`
+* Exemple 💯    
+
+			admin@VGRFJWX8PH2  ~/Desktop/Nouveau dossier (errami)
+			$ git reset --hard 903f7d52
+			HEAD is now at 903f7d5 second commit
+
+* Pour supprimer le dernier commit : 
+
+		admin@VGRFJWX8PH2  ~/Desktop/Nouveau dossier (errami)
+		$ git reset --hard HEAD^
+		HEAD is now at d2c1fa3 test   
+
+
+* Maintenant si je voudrais modifier le message de commit 👍
+
+-> Commit avant modification : `git commit -m "first commit  "  `
+-> Commit aprés modification : `git commit --amend -m "second commit"  ` 
+
+
+* Si vous faite un push sur github mais vous voulez la supprimer : vous voudrais utilisez `git revert` pour les branches publique , et `git reset` pour les branches privées .  
+---  
+---  
+# git reset 👍
+---   
+
+		La commande    git reset  est un outil complexe et polyvalent pour annuler les changements. Elle peut être appelée de trois façons différentes, qui correspondent aux arguments de ligne de commande --soft, --mixed et --hard.  
+
+
+![git reset](git_reset.PNG)  
+
+		La commande git reset --hard peut en effet supprimer toutes les modifications non enregistrées (non committées) que vous avez apportées à votre projet depuis le dernier commit. Cette commande réinitialise votre projet à l'état du dernier commit enregistré, en supprimant toutes les modifications non enregistrées. Elle supprime également tous les fichiers ajoutés dans l'index (staging area) via git add, ce qui signifie qu'ils ne seront pas inclus dans le prochain commit.
+
+		La commande git reset --mixed supprime la référence au dernier commit enregistré et réinitialise l'index (staging area) au dernier commit, mais elle ne modifie pas les fichiers dans le répertoire de travail, ce qui signifie que vous conservez vos modifications locales non enregistrées. Vous pouvez alors revoir les modifications et les ajouter à l'index de nouveau avec git add pour effectuer un nouveau commit.
+
+		Enfin, la commande git reset --soft réinitialise simplement la référence au dernier commit enregistré sans modifier les fichiers de votre répertoire de travail ni l'index (staging area). Cela vous permet d'apporter des modifications supplémentaires et de créer un nouveau commit contenant ces modifications.
+
+		Il convient de noter que git reset modifie l'historique des commits de votre branche et peut entraîner la perte de données non enregistrées ou non sauvegardées. Il est donc important de comprendre l'effet de chaque option avant de les utiliser et de sauvegarder votre travail en cas de doute.  
+
+
+			La commande git reset --soft et git reset --mixed ont toutes deux pour effet de déplacer la branche HEAD vers un commit spécifique et de modifier l'état de l'index (staging area) en conséquence. Cependant, leur effet sur le répertoire de travail est différent.
+
+			git reset --soft déplace simplement la branche HEAD vers le commit spécifié, sans modifier l'index ni le répertoire de travail. Cela signifie que les modifications apportées depuis le dernier commit restent dans l'index et dans le répertoire de travail. Cette commande est souvent utilisée pour "défaire" un ou plusieurs commits précédents sans perdre les modifications apportées depuis le dernier commit.
+
+			git reset --mixed déplace également la branche HEAD vers le commit spécifié, mais modifie également l'index en conséquence. Les modifications apportées depuis le dernier commit sont supprimées de l'index, mais restent dans le répertoire de travail. Cette commande est souvent utilisée pour "défaire" un ou plusieurs commits précédents et revenir à l'état précédent, tout en conservant les modifications apportées dans le répertoire de travail.
+
+			En résumé, la principale différence entre git reset --soft et git reset --mixed est que la première conserve les modifications non indexées (non enregistrées) tandis que la seconde supprime ces modifications de l'index mais les conserve dans le répertoire de travail.  
+
+---  
+---  
+# git log  👍
+--- 
+
+
+`git log` Par défaut,    git log    énumère en ordre chronologique inversé les commits réalisés. Cela signifie que les commits les plus récents apparaissent en premier. Cette commande affiche chaque commit avec son identifiant SHA, l'auteur du commit, la date et le message du commit.   
+
+`git reflog`  va loguer les commits ainsi que toutes les autres actions que vous avez pu faire en local : vos modifications de messages, vos merges, vos resets, enfin tout, quoi  . Comme    git log   ,   git reflog  affiche un identifiant SHA-1 pour chaque action. Il est donc très facile de revenir à une action donnée grâce au SHA. Cette commande, c'est votre joker, elle assure votre survie en cas d'erreur. Pour revenir à une action donnée, on prend les 8 premiers caractères de son SHA et on fait : `git checkout e789e7c`  
+
+
+`git blame (NomDeFichier)` La commande    git blame   permet d’examiner le contenu d’un fichier ligne par ligne et de déterminer la date à laquelle chaque ligne a été modifiée, et le nom de l’auteur des modifications  .  
+
+`git blame`  va afficher pour chaque ligne modifiée :
+
+-> son ID ;
+
+-> l'auteur ;
+
+-> l'horodatage ;
+
+-> le numéro de la ligne ;
+
+-> le contenu de la ligne.  
+
+Admettons que vous travailliez sur une branche "Mes évolutions", et que vous ayez déjà réalisé plusieurs commits. Votre collègue a besoin de l'une de ces évolutions pour la livrer au client, mais pas des autres. C'est dans ce cas bien précis que nous allons faire appel à   `git cherry-pick`   ! Cette commande va permettre de sélectionner un ou plusieurs commits grâce à leur SHA (décidément ils sont partout) et de les migrer sur la branche principale, sans pour autant fusionner toute la branche "Mes évolutions".
+
+
+
+
+
+
+
+
 
 
 
